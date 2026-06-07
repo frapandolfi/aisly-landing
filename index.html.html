@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aisly. — Il personal shopper AI per il tuo negozio Shopify</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --black: #080808;
+    --white: #f0ece4;
+    --green: #1D9E75;
+    --green-light: #6ee7b7;
+    --amber: #BA7517;
+    --gray: #888780;
+    --border: #1a1a1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--green-light); }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--gray); font-size: 12px; text-decoration: none;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--green-light); color: var(--black);
+    border: none; padding: 10px 24px; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: #8ff5cf; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(29,158,117,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(110,231,183,0.06) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .hero-content { position: relative; z-index: 1; text-align: center; max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(29,158,117,0.1); border: 1px solid rgba(110,231,183,0.2);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 11px; color: var(--green-light);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--green-light);
+  }
+
+  .hero-sub {
+    font-size: 16px; color: var(--gray); line-height: 1.8;
+    max-width: 560px; margin: 0 auto 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--green-light); color: var(--black);
+    border: none; padding: 16px 36px; border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #8ff5cf; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(110,231,183,0.3); }
+
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    border: 1px solid #333; padding: 16px 36px; border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--green-light); color: var(--green-light); transform: translateY(-2px); }
+
+  .hero-stat {
+    margin-top: 80px;
+    display: flex; gap: 64px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .hero-stat-item { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px; font-weight: 700; color: var(--green-light);
+    line-height: 1;
+  }
+  .hero-stat-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STRIP ── */
+  .strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0; overflow: hidden;
+    background: rgba(29,158,117,0.04);
+  }
+  .strip-inner {
+    display: flex; gap: 64px; align-items: center;
+    animation: scroll 20s linear infinite;
+    white-space: nowrap;
+  }
+  .strip-item {
+    font-size: 11px; color: var(--gray); text-transform: uppercase;
+    letter-spacing: 2px; flex-shrink: 0;
+  }
+  .strip-dot { color: var(--green-light); }
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTION ── */
+  section { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; color: var(--green-light);
+    text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -1px; margin-bottom: 20px;
+  }
+
+  .section-sub {
+    font-size: 15px; color: var(--gray); line-height: 1.8;
+    max-width: 560px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 64px;
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+
+  .how-card {
+    background: #0e0e0e; padding: 40px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .how-card:hover { background: #111; }
+  .how-card:nth-child(even) { border-right: none; }
+  .how-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .how-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px; font-weight: 900;
+    color: rgba(110,231,183,0.08);
+    position: absolute; top: 20px; right: 28px;
+    line-height: 1;
+  }
+
+  .how-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(29,158,117,0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; font-size: 18px;
+  }
+
+  .how-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .how-card p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+  /* ── FEATURES ── */
+  .features-wrap { margin-top: 64px; }
+
+  .feature-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-row.reverse { direction: rtl; }
+  .feature-row.reverse > * { direction: ltr; }
+
+  .feature-tag {
+    font-size: 10px; color: var(--green-light);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .feature-desc { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 24px; }
+
+  .feature-list { list-style: none; }
+  .feature-list li {
+    font-size: 13px; color: var(--gray);
+    padding: 8px 0; border-bottom: 1px solid #111;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .feature-list li::before { content: '→'; color: var(--green-light); flex-shrink: 0; }
+
+  .feature-visual {
+    background: #0e0e0e; border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px;
+    aspect-ratio: 4/3; display: flex; flex-direction: column;
+    justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+
+  .chat-bubble {
+    padding: 12px 16px; border-radius: 12px;
+    font-size: 13px; line-height: 1.5; max-width: 80%;
+  }
+  .chat-bubble.bot { background: #1a1a1a; color: var(--white); align-self: flex-start; }
+  .chat-bubble.user { background: rgba(29,158,117,0.2); color: var(--green-light); align-self: flex-end; }
+
+  .chat-card {
+    background: #141414; border: 1px solid #222;
+    border-radius: 10px; padding: 14px;
+    margin-top: 8px; max-width: 200px;
+  }
+  .chat-card-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .chat-card-price { font-size: 13px; color: var(--green-light); font-weight: 700; margin-bottom: 10px; }
+  .chat-card-btn {
+    width: 100%; background: var(--green); color: var(--white);
+    border: none; border-radius: 6px; padding: 6px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+  }
+
+  .kpi-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px; font-weight: 700; color: var(--green-light);
+    line-height: 1;
+  }
+  .kpi-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+  .kpi-sub { font-size: 12px; color: var(--gray); margin-top: 8px; }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; margin-top: 64px;
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+
+  .price-card {
+    background: #0e0e0e; padding: 36px 28px;
+    border-right: 1px solid var(--border);
+    position: relative; transition: background 0.2s;
+  }
+  .price-card:last-child { border-right: none; }
+  .price-card:hover { background: #111; }
+  .price-card.featured { background: #0a1a0a; }
+
+  .price-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--green-light); color: var(--black);
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;
+  }
+
+  .price-name {
+    font-size: 11px; color: var(--gray); text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 16px;
+  }
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px; font-weight: 700; line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-amount span { font-size: 18px; font-weight: 400; color: var(--gray); }
+  .price-msgs { font-size: 12px; color: var(--gray); margin-bottom: 28px; }
+
+  .price-features { list-style: none; margin-bottom: 28px; }
+  .price-features li {
+    font-size: 12px; color: var(--gray);
+    padding: 6px 0; border-bottom: 1px solid #111;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .price-features li::before { content: '✓'; color: var(--green-light); }
+
+  .price-btn {
+    width: 100%; padding: 12px; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; cursor: pointer; transition: all 0.2s;
+    text-decoration: none; display: block; text-align: center;
+  }
+  .price-btn.outline {
+    background: transparent; color: var(--white);
+    border: 1px solid #333;
+  }
+  .price-btn.outline:hover { border-color: var(--green-light); color: var(--green-light); }
+  .price-btn.solid {
+    background: var(--green-light); color: var(--black);
+    border: none; font-weight: 600;
+  }
+  .price-btn.solid:hover { background: #8ff5cf; }
+
+  /* ── TOPUP ── */
+  .topup-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 32px;
+  }
+  .topup-card {
+    background: #0e0e0e; border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .topup-name { font-size: 13px; margin-bottom: 4px; }
+  .topup-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--green-light); font-weight: 700; }
+  .topup-unit { font-size: 11px; color: var(--gray); }
+
+  /* ── SNIPPET ── */
+  .snippet-wrap {
+    background: #080808; border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-top: 48px;
+  }
+  .snippet-header {
+    background: #0e0e0e; padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .snippet-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .snippet-title { font-size: 11px; color: var(--gray); margin-left: 8px; }
+  .snippet-code {
+    padding: 24px; font-size: 13px; line-height: 1.8;
+    color: var(--green-light); overflow-x: auto;
+  }
+  .snippet-code .tag { color: #569cd6; }
+  .snippet-code .attr { color: #9cdcfe; }
+  .snippet-code .val { color: var(--green-light); }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center; padding: 120px 48px;
+    border-top: 1px solid var(--border);
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(29,158,117,0.08) 0%, transparent 70%);
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900; line-height: 1; letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  .cta-title em { font-style: italic; color: var(--green-light); }
+  .cta-sub { font-size: 15px; color: var(--gray); margin-bottom: 48px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; }
+  .footer-logo span { color: var(--green-light); }
+  .footer-copy { font-size: 11px; color: var(--gray); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 11px; color: var(--gray); text-decoration: none; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-stat { gap: 32px; }
+    section { padding: 80px 24px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .how-card:nth-child(even) { border-right: 1px solid var(--border); }
+    .how-card { border-right: none !important; }
+    .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .topup-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">aisly<span>.</span></div>
+  <div class="nav-links">
+    <a href="#come-funziona">Come funziona</a>
+    <a href="#funzionalita">Funzionalità</a>
+    <a href="#prezzi">Prezzi</a>
+  </div>
+  <a href="https://app.tryaisly.com" class="nav-cta">Inizia gratis →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Personal Shopper AI per Shopify</div>
+    <h1 class="hero-title">
+      Il commesso<br>
+      che <em>non dorme</em><br>
+      mai.
+    </h1>
+    <p class="hero-sub">
+      Aisly si installa in 60 secondi, conosce il tuo catalogo,
+      legge il carrello del cliente in tempo reale e chiude vendite
+      che altrimenti andresti a perdere.
+    </p>
+    <div class="hero-actions">
+      <a href="https://app.tryaisly.com" class="btn-primary">Prova gratis 14 giorni →</a>
+      <a href="#come-funziona" class="btn-secondary">Come funziona</a>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">60s</div>
+        <div class="hero-stat-label">Installazione</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">Sempre attivo</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">7x</div>
+        <div class="hero-stat-label">ROI medio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Personal Shopper AI</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Gestione obiezioni</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Cross-sell intelligente</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Carrello real-time</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Abandoned cart recovery</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Analytics conversioni</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Multilingua</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Personal Shopper AI</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Gestione obiezioni</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Cross-sell intelligente</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Carrello real-time</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Abandoned cart recovery</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Analytics conversioni</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Multilingua</span><span class="strip-dot"> · </span>
+  </div>
+</div>
+
+<!-- COME FUNZIONA -->
+<section id="come-funziona">
+  <div class="section-label">Come funziona</div>
+  <h2 class="section-title">Online in<br><em style="font-style:italic;color:var(--green-light)">60 secondi.</em></h2>
+  <p class="section-sub">Nessun sviluppatore richiesto. Nessuna configurazione complessa. Una riga di codice e il tuo personal shopper AI è live.</p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-icon">📋</div>
+      <h3>Crea l'account</h3>
+      <p>Registrati su app.tryaisly.com, inserisci il nome del negozio e il colore del brand. Trenta secondi.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-icon">🛍️</div>
+      <h3>Sincronizza il catalogo</h3>
+      <p>Inserisci il nome del tuo negozio Shopify. Aisly scarica automaticamente tutti i prodotti con prezzi e disponibilità.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-icon">⚡</div>
+      <h3>Installa lo snippet</h3>
+      <p>Copia una riga di codice e incollala nel tema Shopify. Il widget è online immediatamente, senza ricaricare.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">04</div>
+      <div class="how-icon">💰</div>
+      <h3>Il bot vende per te</h3>
+      <p>Da quel momento ogni visitatore può chattare con il personal shopper AI, ricevere suggerimenti e aggiungere prodotti al carrello dalla chat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNZIONALITÀ -->
+<section id="funzionalita" style="border-top: 1px solid var(--border); max-width:100%; background: #080808; padding: 120px 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 48px;">
+    <div class="section-label">Funzionalità</div>
+    <h2 class="section-title">Non è un chatbot.<br>È un <em style="font-style:italic;color:var(--green-light)">commesso esperto.</em></h2>
+    <p class="section-sub">La differenza tra un chatbot e un personal shopper è la stessa tra un cartello con il prezzo e un venditore che conosce i tuoi gusti.</p>
+
+    <div class="features-wrap">
+
+      <!-- Feature 1 -->
+      <div class="feature-row">
+        <div>
+          <div class="feature-tag">Conversazione intelligente</div>
+          <h3 class="feature-title">Gestisce le obiezioni come un professionista</h3>
+          <p class="feature-desc">Quando il cliente dice "è troppo caro" o "devo pensarci", Aisly non si ferma. Risponde con alternative, spiega il valore e trova il momento giusto per chiudere.</p>
+          <ul class="feature-list">
+            <li>Gestione obiezioni prezzo</li>
+            <li>Tecniche di chiusura naturali</li>
+            <li>Upsell contestuale intelligente</li>
+            <li>Memoria dell'intera conversazione</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="chat-bubble user">questa giacca mi sembra cara...</div>
+            <div class="chat-bubble bot">Capisco — ma considera che dura almeno 5 anni. Sono €0,06 al giorno per un capo che userai ogni settimana. Vuoi che ti mostro anche la versione in lana merino, che è ancora più resistente?</div>
+          </div>
+          <div style="font-size:11px;color:var(--gray);text-align:right;">Obiezione gestita · Upsell proposto</div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-row reverse">
+        <div>
+          <div class="feature-tag">Carrello real-time</div>
+          <h3 class="feature-title">Vede cosa c'è nel carrello e suggerisce subito</h3>
+          <p class="feature-desc">Aisly legge il carrello del cliente in tempo reale. Quando apre la chat con prodotti già scelti, il bot sa esattamente cosa consigliare per completare l'outfit o il progetto.</p>
+          <ul class="feature-list">
+            <li>Lettura carrello ogni 5 secondi</li>
+            <li>Greeting personalizzato con carrello</li>
+            <li>Cross-sell automatico post-aggiunta</li>
+            <li>Nessun prodotto già nel carrello ri-proposto</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="chat-bubble bot">Ciao! 👋 Vedo che hai già una tshirt bianca nel carrello — perfetta scelta. Ti mostro cosa ci abbina bene:</div>
+            <div class="chat-card">
+              <div class="chat-card-title">Chino slim fit grigio</div>
+              <div class="chat-card-price">€59</div>
+              <button class="chat-card-btn">+ Aggiungi al carrello</button>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--gray);text-align:right;">Carrello letto · Suggerimento pertinente</div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-row">
+        <div>
+          <div class="feature-tag">Analytics conversioni</div>
+          <h3 class="feature-title">Sai esattamente quanto guadagni grazie ad Aisly</h3>
+          <p class="feature-desc">La dashboard mostra il valore generato questo mese, le aggiunte al carrello, il conversion rate e il ROI rispetto al costo del piano. Un numero che blocca il churn.</p>
+          <ul class="feature-list">
+            <li>Valore potenziale carrello mensile</li>
+            <li>Conversion rate sessioni → acquisti</li>
+            <li>ROI vs costo piano in tempo reale</li>
+            <li>Prodotti più cercati in chat</li>
+          </ul>
+        </div>
+        <div class="feature-visual" style="justify-content:center;align-items:center;flex-direction:column;gap:8px;">
+          <div style="font-size:11px;color:var(--green-light);text-transform:uppercase;letter-spacing:2px;">Valore generato questo mese</div>
+          <div class="kpi-big">€3.840</div>
+          <div class="kpi-sub">Il tuo piano costa €54 · ROI <span style="color:var(--green-light);font-weight:700;">71x</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PREZZI -->
+<section id="prezzi">
+  <div class="section-label">Prezzi</div>
+  <h2 class="section-title">Semplice.<br><em style="font-style:italic;color:var(--green-light)">Trasparente.</em></h2>
+  <p class="section-sub">Inizia gratis. Passa a un piano a pagamento quando sei pronto. Nessun contratto, cancella quando vuoi.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Free</div>
+      <div class="price-amount">€0<span>/mese</span></div>
+      <div class="price-msgs">100 conversazioni/mese</div>
+      <ul class="price-features">
+        <li>Widget completo</li>
+        <li>Personal shopper AI</li>
+        <li>Carrello real-time</li>
+        <li>Dashboard analytics</li>
+      </ul>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Base</div>
+      <div class="price-amount">€24<span>/mese</span></div>
+      <div class="price-msgs">1.000 conversazioni/mese</div>
+      <ul class="price-features">
+        <li>Tutto il piano Free</li>
+        <li>1.000 conversazioni</li>
+        <li>Cross-sell automatico</li>
+        <li>Abandoned cart recovery</li>
+      </ul>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Più popolare</div>
+      <div class="price-name">Pro</div>
+      <div class="price-amount">€54<span>/mese</span></div>
+      <div class="price-msgs">3.000 conversazioni/mese</div>
+      <ul class="price-features">
+        <li>Tutto il piano Base</li>
+        <li>3.000 conversazioni</li>
+        <li>Priorità supporto</li>
+        <li>Analytics avanzate</li>
+      </ul>
+      <a href="https://app.tryaisly.com" class="price-btn solid">Inizia gratis</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Business</div>
+      <div class="price-amount">€109<span>/mese</span></div>
+      <div class="price-msgs">10.000 conversazioni/mese</div>
+      <ul class="price-features">
+        <li>Tutto il piano Pro</li>
+        <li>10.000 conversazioni</li>
+        <li>Onboarding dedicato</li>
+        <li>SLA garantito</li>
+      </ul>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+    </div>
+  </div>
+
+  <div style="margin-top:48px;">
+    <div style="font-size:12px;color:var(--gray);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;">Top-up messaggi — per i mesi ad alto traffico</div>
+    <div class="topup-grid">
+      <div class="topup-card">
+        <div><div class="topup-name">+500 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div class="topup-price">€9</div>
+      </div>
+      <div class="topup-card">
+        <div><div class="topup-name">+1.000 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div class="topup-price">€15</div>
+      </div>
+      <div class="topup-card">
+        <div><div class="topup-name">+2.500 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div class="topup-price">€29</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Snippet -->
+  <div style="margin-top:80px;">
+    <div class="section-label">Installazione</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:12px;">Una riga. Davvero.</h3>
+    <p style="font-size:14px;color:var(--gray);margin-bottom:0;">Incolla questo snippet nel tuo tema Shopify prima di &lt;/body&gt; e il widget è live.</p>
+    <div class="snippet-wrap">
+      <div class="snippet-header">
+        <div class="snippet-dot" style="background:#ff5f56;"></div>
+        <div class="snippet-dot" style="background:#ffbd2e;"></div>
+        <div class="snippet-dot" style="background:#27c93f;"></div>
+        <span class="snippet-title">theme.liquid</span>
+      </div>
+      <div class="snippet-code">
+        <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="val">"https://aisly-ten.vercel.app/widget/w.js?shop=<span style="color:#ce9178;">YOUR_SHOP_ID</span>"</span> <span class="attr">async</span><span class="tag">&gt;&lt;/script&gt;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title">Inizia a<br><em>vendere di più</em><br>da oggi.</h2>
+  <p class="cta-sub">14 giorni gratis. Nessuna carta di credito richiesta. Cancella quando vuoi.</p>
+  <a href="https://app.tryaisly.com" class="btn-primary" style="font-size:15px;padding:18px 48px;">Crea il tuo account gratis →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">aisly<span>.</span></div>
+  <div class="footer-copy">© 2026 Aisly · tryaisly.com</div>
+  <div class="footer-links">
+    <a href="https://app.tryaisly.com">Dashboard</a>
+    <a href="mailto:hello@tryaisly.com">Contatti</a>
+  </div>
+</footer>
+
+</body>
+</html>
