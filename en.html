@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aisly. — Il personal shopper AI per il tuo negozio Shopify</title>
+<title>aisly. — The AI personal shopper for your Shopify store</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -128,26 +128,6 @@
   .topup-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--green-light); font-weight: 700; }
   .topup-unit { font-size: 11px; color: var(--gray); }
 
-  /* ── AGENZIE ── */
-  .agency-section { border-top: 1px solid var(--border); background: #050505; padding: 120px 0; }
-  .agency-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
-  .agency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
-  .agency-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-  .agency-plan-card { background: #0e0e0e; border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
-  .agency-plan-card:hover { border-color: rgba(110,231,183,0.3); }
-  .agency-plan-card.featured { border-color: rgba(110,231,183,0.25); background: #0a1a0a; }
-  .agency-plan-name { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
-  .agency-plan-price { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
-  .agency-plan-price span { font-size: 14px; font-weight: 400; color: var(--gray); }
-  .agency-plan-detail { font-size: 12px; color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
-  .agency-plan-btn { width: 100%; padding: 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; cursor: pointer; text-decoration: none; display: block; text-align: center; background: transparent; color: var(--white); border: 1px solid #333; transition: all 0.2s; }
-  .agency-plan-btn:hover { border-color: var(--green-light); color: var(--green-light); }
-  .agency-plan-btn.solid { background: var(--green-light); color: var(--black); border: none; font-weight: 600; }
-  .agency-plan-btn.solid:hover { background: #8ff5cf; }
-  .agency-feature-list { list-style: none; margin-top: 32px; }
-  .agency-feature-list li { font-size: 13px; color: var(--gray); padding: 10px 0; border-bottom: 1px solid #111; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-  .agency-feature-list li::before { content: '→'; color: var(--green-light); flex-shrink: 0; margin-top: 2px; }
-
   .snippet-wrap { background: #080808; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 48px; }
   .snippet-header { background: #0e0e0e; padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
   .snippet-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -187,11 +167,8 @@
     .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
     .pricing-grid { grid-template-columns: 1fr 1fr; }
     .topup-grid { grid-template-columns: 1fr; }
-    .agency-grid { grid-template-columns: 1fr; gap: 48px; }
-    .agency-plans { grid-template-columns: 1fr; }
     .footer-top { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; }
-    .agency-inner { padding: 0 24px; }
   }
 </style>
 </head>
@@ -201,13 +178,12 @@
 <nav>
   <div class="nav-logo">aisly<span>.</span></div>
   <div class="nav-links">
-    <a href="#come-funziona">Come funziona</a>
-    <a href="#funzionalita">Funzionalità</a>
-    <!-- Feature agenzie disattivata (nessun cliente attivo) — <a href="#agenzie">Agenzie</a> -->
-    <a href="#prezzi">Prezzi</a>
-    <a href="/en" class="lang-switch">EN</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/" class="lang-switch">IT</a>
   </div>
-  <a href="https://app.tryaisly.com" class="nav-cta">Inizia gratis →</a>
+  <a href="https://app.tryaisly.com" class="nav-cta">Start free →</a>
 </nav>
 
 <!-- HERO -->
@@ -215,33 +191,33 @@
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge">Personal Shopper AI per Shopify</div>
+    <div class="hero-badge">AI Personal Shopper for Shopify</div>
     <h1 class="hero-title">
-      Il commesso<br>
-      che <em>non dorme</em><br>
-      mai.
+      The salesperson<br>
+      who <em>never</em><br>
+      sleeps.
     </h1>
     <p class="hero-sub">
-      Aisly si installa in 60 secondi, conosce il tuo catalogo,
-      legge il carrello del cliente in tempo reale e chiude vendite
-      che altrimenti andresti a perdere.
+      Aisly installs in 60 seconds, knows your catalog,
+      reads the customer's cart in real time, and closes sales
+      you'd otherwise lose.
     </p>
     <div class="hero-actions">
-      <a href="https://app.tryaisly.com" class="btn-primary">Prova gratis 14 giorni →</a>
-      <a href="#come-funziona" class="btn-secondary">Come funziona</a>
+      <a href="https://app.tryaisly.com" class="btn-primary">Try free for 14 days →</a>
+      <a href="#how-it-works" class="btn-secondary">How it works</a>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-item">
         <div class="hero-stat-num">60s</div>
-        <div class="hero-stat-label">Installazione</div>
+        <div class="hero-stat-label">Setup</div>
       </div>
       <div class="hero-stat-item">
         <div class="hero-stat-num">24/7</div>
-        <div class="hero-stat-label">Sempre attivo</div>
+        <div class="hero-stat-label">Always on</div>
       </div>
       <div class="hero-stat-item">
         <div class="hero-stat-num">€0</div>
-        <div class="hero-stat-label">Costo personale</div>
+        <div class="hero-stat-label">Staff cost</div>
       </div>
     </div>
   </div>
@@ -250,233 +226,233 @@
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-inner">
-    <span class="strip-item">Personal Shopper AI</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Gestione obiezioni</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Cross-sell intelligente</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Carrello real-time</span><span class="strip-dot"> · </span>
+    <span class="strip-item">AI Personal Shopper</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Objection handling</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Smart cross-sell</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Real-time cart</span><span class="strip-dot"> · </span>
     <span class="strip-item">Abandoned cart recovery</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Analytics conversioni</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Multilingua</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Personal Shopper AI</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Gestione obiezioni</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Cross-sell intelligente</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Carrello real-time</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Conversion analytics</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Multilingual</span><span class="strip-dot"> · </span>
+    <span class="strip-item">AI Personal Shopper</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Objection handling</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Smart cross-sell</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Real-time cart</span><span class="strip-dot"> · </span>
     <span class="strip-item">Abandoned cart recovery</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Analytics conversioni</span><span class="strip-dot"> · </span>
-    <span class="strip-item">Multilingua</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Conversion analytics</span><span class="strip-dot"> · </span>
+    <span class="strip-item">Multilingual</span><span class="strip-dot"> · </span>
   </div>
 </div>
 
-<!-- COME FUNZIONA -->
-<section id="come-funziona">
-  <div class="section-label">Come funziona</div>
-  <h2 class="section-title">Online in<br><em style="font-style:italic;color:var(--green-light)">60 secondi.</em></h2>
-  <p class="section-sub">Nessun sviluppatore richiesto. Nessuna configurazione complessa. Una riga di codice e il tuo personal shopper AI è live.</p>
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">Live in<br><em style="font-style:italic;color:var(--green-light)">60 seconds.</em></h2>
+  <p class="section-sub">No developer required. No complex setup. One line of code and your AI personal shopper is live.</p>
   <div class="how-grid">
     <div class="how-card">
       <div class="how-num">01</div>
       <div class="how-icon">📋</div>
-      <h3>Crea l'account</h3>
-      <p>Registrati su app.tryaisly.com, inserisci il nome del negozio e il colore del brand. Trenta secondi.</p>
+      <h3>Create your account</h3>
+      <p>Sign up at app.tryaisly.com, enter your store name and brand color. Thirty seconds.</p>
     </div>
     <div class="how-card">
       <div class="how-num">02</div>
       <div class="how-icon">🛍️</div>
-      <h3>Sincronizza il catalogo</h3>
-      <p>Inserisci il nome del tuo negozio Shopify. Aisly scarica automaticamente tutti i prodotti con prezzi e disponibilità.</p>
+      <h3>Sync your catalog</h3>
+      <p>Enter your Shopify store name. Aisly automatically downloads all products with prices and availability.</p>
     </div>
     <div class="how-card">
       <div class="how-num">03</div>
       <div class="how-icon">⚡</div>
-      <h3>Installa lo snippet</h3>
-      <p>Copia una riga di codice e incollala nel tema Shopify. Il widget è online immediatamente, senza ricaricare.</p>
+      <h3>Install the snippet</h3>
+      <p>Copy one line of code and paste it into your Shopify theme. The widget goes live instantly, no reload needed.</p>
     </div>
     <div class="how-card">
       <div class="how-num">04</div>
       <div class="how-icon">💰</div>
-      <h3>Il bot vende per te</h3>
-      <p>Da quel momento ogni visitatore può chattare con il personal shopper AI, ricevere suggerimenti e aggiungere prodotti al carrello dalla chat.</p>
+      <h3>The bot sells for you</h3>
+      <p>From that moment, every visitor can chat with the AI personal shopper, get suggestions, and add products to cart right from the chat.</p>
     </div>
   </div>
 </section>
 
-<!-- FUNZIONALITÀ -->
-<section id="funzionalita" style="border-top: 1px solid var(--border); max-width:100%; background: #080808; padding: 120px 0;">
+<!-- FEATURES -->
+<section id="features" style="border-top: 1px solid var(--border); max-width:100%; background: #080808; padding: 120px 0;">
   <div style="max-width:1200px;margin:0 auto;padding:0 48px;">
-    <div class="section-label">Funzionalità</div>
-    <h2 class="section-title">Non è un chatbot.<br>È un <em style="font-style:italic;color:var(--green-light)">commesso esperto.</em></h2>
-    <p class="section-sub">La differenza tra un chatbot e un personal shopper è la stessa tra un cartello con il prezzo e un venditore che conosce i tuoi gusti.</p>
+    <div class="section-label">Features</div>
+    <h2 class="section-title">It's not a chatbot.<br>It's an <em style="font-style:italic;color:var(--green-light)">expert salesperson.</em></h2>
+    <p class="section-sub">The difference between a chatbot and a personal shopper is the same as between a price tag and a salesperson who knows your taste.</p>
     <div class="features-wrap">
       <div class="feature-row">
         <div>
-          <div class="feature-tag">Conversazione intelligente</div>
-          <h3 class="feature-title">Gestisce le obiezioni come un professionista</h3>
-          <p class="feature-desc">Quando il cliente dice "è troppo caro" o "devo pensarci", Aisly non si ferma. Risponde con alternative, spiega il valore e trova il momento giusto per chiudere.</p>
+          <div class="feature-tag">Smart conversation</div>
+          <h3 class="feature-title">Handles objections like a professional</h3>
+          <p class="feature-desc">When the customer says "it's too expensive" or "I need to think about it," Aisly doesn't stop. It responds with alternatives, explains the value, and finds the right moment to close.</p>
           <ul class="feature-list">
-            <li>Gestione obiezioni prezzo</li>
-            <li>Tecniche di chiusura naturali</li>
-            <li>Upsell contestuale intelligente</li>
-            <li>Memoria dell'intera conversazione</li>
+            <li>Price objection handling</li>
+            <li>Natural closing techniques</li>
+            <li>Smart contextual upsell</li>
+            <li>Remembers the whole conversation</li>
           </ul>
         </div>
         <div class="feature-visual">
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="chat-bubble user">questa giacca mi sembra cara...</div>
-            <div class="chat-bubble bot">Capisco — ma considera che dura almeno 5 anni. Sono €0,06 al giorno per un capo che userai ogni settimana. Vuoi che ti mostro anche la versione in lana merino?</div>
+            <div class="chat-bubble user">this jacket seems expensive...</div>
+            <div class="chat-bubble bot">I get it — but it lasts at least 5 years. That's €0.06 a day for something you'll wear every week. Want to see the merino wool version too?</div>
           </div>
-          <div style="font-size:11px;color:var(--gray);text-align:right;">Obiezione gestita · Upsell proposto</div>
+          <div style="font-size:11px;color:var(--gray);text-align:right;">Objection handled · Upsell proposed</div>
         </div>
       </div>
       <div class="feature-row reverse">
         <div>
-          <div class="feature-tag">Carrello real-time</div>
-          <h3 class="feature-title">Vede cosa c'è nel carrello e suggerisce subito</h3>
-          <p class="feature-desc">Aisly legge il carrello del cliente in tempo reale. Quando apre la chat con prodotti già scelti, il bot sa esattamente cosa consigliare per completare l'outfit o il progetto.</p>
+          <div class="feature-tag">Real-time cart</div>
+          <h3 class="feature-title">Sees what's in the cart and suggests instantly</h3>
+          <p class="feature-desc">Aisly reads the customer's cart in real time. When they open the chat with products already chosen, the bot knows exactly what to recommend to complete the outfit or project.</p>
           <ul class="feature-list">
-            <li>Lettura carrello ogni 5 secondi</li>
-            <li>Greeting personalizzato con carrello</li>
-            <li>Cross-sell automatico post-aggiunta</li>
-            <li>Nessun prodotto già nel carrello ri-proposto</li>
+            <li>Reads the cart every 5 seconds</li>
+            <li>Cart-aware personalized greeting</li>
+            <li>Automatic cross-sell after add-to-cart</li>
+            <li>Never re-suggests items already in the cart</li>
           </ul>
         </div>
         <div class="feature-visual">
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="chat-bubble bot">Ciao! 👋 Vedo che hai già una tshirt bianca nel carrello — perfetta scelta. Ti mostro cosa ci abbina bene:</div>
+            <div class="chat-bubble bot">Hi! 👋 I see you already have a white t-shirt in your cart — great choice. Here's what pairs well with it:</div>
             <div class="chat-card">
-              <div class="chat-card-title">Chino slim fit grigio</div>
+              <div class="chat-card-title">Grey slim-fit chinos</div>
               <div class="chat-card-price">€59</div>
-              <button class="chat-card-btn">+ Aggiungi al carrello</button>
+              <button class="chat-card-btn">+ Add to cart</button>
             </div>
           </div>
-          <div style="font-size:11px;color:var(--gray);text-align:right;">Carrello letto · Suggerimento pertinente</div>
+          <div style="font-size:11px;color:var(--gray);text-align:right;">Cart read · Relevant suggestion</div>
         </div>
       </div>
       <div class="feature-row">
         <div>
-          <div class="feature-tag">Analytics conversioni</div>
-          <h3 class="feature-title">Sai esattamente quanto guadagni grazie ad Aisly</h3>
-          <p class="feature-desc">La dashboard mostra il valore generato questo mese, le aggiunte al carrello, il conversion rate e i prodotti più cercati in chat.</p>
+          <div class="feature-tag">Conversion analytics</div>
+          <h3 class="feature-title">Know exactly how much Aisly earns you</h3>
+          <p class="feature-desc">The dashboard shows the value generated this month, cart adds, conversion rate, and the most-searched products in chat.</p>
           <ul class="feature-list">
-            <li>Valore potenziale carrello mensile</li>
-            <li>Conversion rate sessioni → acquisti</li>
-            <li>Prodotti più cercati in chat</li>
-            <li>Storico messaggi e sessioni</li>
+            <li>Monthly potential cart value</li>
+            <li>Session → purchase conversion rate</li>
+            <li>Most-searched products in chat</li>
+            <li>Message and session history</li>
           </ul>
         </div>
         <div class="feature-visual" style="justify-content:center;align-items:center;flex-direction:column;gap:8px;">
-          <div style="font-size:11px;color:var(--green-light);text-transform:uppercase;letter-spacing:2px;">Valore generato questo mese</div>
-          <div class="kpi-big">€3.840</div>
-          <div class="kpi-sub">64 aggiunte al carrello · 12% conversion rate</div>
+          <div style="font-size:11px;color:var(--green-light);text-transform:uppercase;letter-spacing:2px;">Value generated this month</div>
+          <div class="kpi-big">€3,840</div>
+          <div class="kpi-sub">64 cart adds · 12% conversion rate</div>
         </div>
       </div>
       <div class="feature-row reverse">
         <div>
-          <div class="feature-tag">Impara dal tuo negozio</div>
-          <h3 class="feature-title">Non è uno script fisso. Impara cosa converte davvero da te.</h3>
-          <p class="feature-desc">Ogni negozio è diverso — quello che funziona per un competitor non funziona per te. Aisly osserva quali prodotti vengono mostrati e quali finiscono davvero nel carrello, e si ricalibra da solo: consiglia sempre di più quello che converte nel <em style="font-style:italic;color:var(--green-light)">tuo</em> negozio specifico, non regole generiche uguali per tutti.</p>
+          <div class="feature-tag">Learns from your store</div>
+          <h3 class="feature-title">Not a fixed script. Learns what actually converts for you.</h3>
+          <p class="feature-desc">Every store is different — what works for a competitor doesn't work for you. Aisly watches which products get shown and which actually end up in the cart, and recalibrates itself: it recommends more and more of what converts in <em style="font-style:italic;color:var(--green-light)">your</em> specific store, not generic rules that are the same for everyone.</p>
           <ul class="feature-list">
-            <li>Si affina automaticamente, nessuna configurazione manuale</li>
-            <li>Trova il prodotto giusto anche su cataloghi enormi, non solo per parola chiave</li>
-            <li>Ogni negozio ha un comportamento diverso — Aisly si adatta al tuo</li>
-            <li>Funziona da subito anche senza storico, migliora con l'uso</li>
+            <li>Fine-tunes itself automatically, no manual setup</li>
+            <li>Finds the right product even in huge catalogs, not just by keyword</li>
+            <li>Every store behaves differently — Aisly adapts to yours</li>
+            <li>Works from day one even with no history, improves with use</li>
           </ul>
         </div>
         <div class="feature-visual" style="justify-content:center;align-items:center;flex-direction:column;gap:10px;">
-          <div style="font-size:11px;color:var(--green-light);text-transform:uppercase;letter-spacing:2px;">Ranking che si auto-calibra</div>
+          <div style="font-size:11px;color:var(--green-light);text-transform:uppercase;letter-spacing:2px;">Self-calibrating ranking</div>
           <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;justify-content:space-between;align-items:center;background:#0e0e0e;border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
-              <span style="font-size:13px;color:var(--white)">Felpa oversize grigia</span>
+              <span style="font-size:13px;color:var(--white)">Oversized grey hoodie</span>
               <span style="font-size:12px;color:var(--green-light);font-weight:700">↑ score 0.61</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;background:#0e0e0e;border:1px solid var(--border);border-radius:8px;padding:10px 14px;opacity:0.6;">
-              <span style="font-size:13px;color:var(--gray)">Felpa oversize blu</span>
+              <span style="font-size:13px;color:var(--gray)">Oversized blue hoodie</span>
               <span style="font-size:12px;color:var(--gray)">score 0.24</span>
             </div>
           </div>
-          <div style="font-size:11px;color:var(--gray);">Stessa categoria, similarità quasi identica — converte diversamente</div>
+          <div style="font-size:11px;color:var(--gray);">Same category, nearly identical similarity — converts differently</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PREZZI MERCHANT -->
-<section id="prezzi">
-  <div class="section-label">Prezzi</div>
-  <h2 class="section-title">Semplice.<br><em style="font-style:italic;color:var(--green-light)">Trasparente.</em></h2>
-  <p class="section-sub">Inizia gratis. Passa a un piano a pagamento quando sei pronto. Nessun contratto, cancella quando vuoi.</p>
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple.<br><em style="font-style:italic;color:var(--green-light)">Transparent.</em></h2>
+  <p class="section-sub">Start for free. Upgrade to a paid plan when you're ready. No contracts, cancel anytime.</p>
   <div class="pricing-grid">
     <div class="price-card">
       <div class="price-name">Free</div>
-      <div class="price-amount">€0<span>/mese</span></div>
-      <div class="price-msgs">100 conversazioni/mese</div>
+      <div class="price-amount">€0<span>/mo</span></div>
+      <div class="price-msgs">100 conversations/month</div>
       <ul class="price-features">
-        <li>Widget completo</li>
-        <li>Personal shopper AI</li>
-        <li>Carrello real-time</li>
-        <li>Dashboard analytics</li>
+        <li>Full widget</li>
+        <li>AI personal shopper</li>
+        <li>Real-time cart</li>
+        <li>Analytics dashboard</li>
       </ul>
-      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Start free</a>
     </div>
     <div class="price-card">
       <div class="price-name">Base</div>
-      <div class="price-amount">€24<span>/mese</span></div>
-      <div class="price-msgs">1.000 conversazioni/mese</div>
+      <div class="price-amount">€24<span>/mo</span></div>
+      <div class="price-msgs">1,000 conversations/month</div>
       <ul class="price-features">
-        <li>Tutto il piano Free</li>
-        <li>1.000 conversazioni</li>
-        <li>Cross-sell automatico</li>
+        <li>Everything in Free</li>
+        <li>1,000 conversations</li>
+        <li>Automatic cross-sell</li>
         <li>Abandoned cart recovery</li>
       </ul>
-      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Start free</a>
     </div>
     <div class="price-card featured">
-      <div class="price-badge">Più popolare</div>
+      <div class="price-badge">Most popular</div>
       <div class="price-name">Pro</div>
-      <div class="price-amount">€54<span>/mese</span></div>
-      <div class="price-msgs">3.000 conversazioni/mese</div>
+      <div class="price-amount">€54<span>/mo</span></div>
+      <div class="price-msgs">3,000 conversations/month</div>
       <ul class="price-features">
-        <li>Tutto il piano Base</li>
-        <li>3.000 conversazioni</li>
-        <li>Priorità supporto</li>
-        <li>Analytics avanzate</li>
+        <li>Everything in Base</li>
+        <li>3,000 conversations</li>
+        <li>Priority support</li>
+        <li>Advanced analytics</li>
       </ul>
-      <a href="https://app.tryaisly.com" class="price-btn solid">Inizia gratis</a>
+      <a href="https://app.tryaisly.com" class="price-btn solid">Start free</a>
     </div>
     <div class="price-card">
       <div class="price-name">Business</div>
-      <div class="price-amount">€109<span>/mese</span></div>
-      <div class="price-msgs">10.000 conversazioni/mese</div>
+      <div class="price-amount">€109<span>/mo</span></div>
+      <div class="price-msgs">10,000 conversations/month</div>
       <ul class="price-features">
-        <li>Tutto il piano Pro</li>
-        <li>10.000 conversazioni</li>
-        <li>Onboarding dedicato</li>
-        <li>SLA garantito</li>
+        <li>Everything in Pro</li>
+        <li>10,000 conversations</li>
+        <li>Dedicated onboarding</li>
+        <li>Guaranteed SLA</li>
       </ul>
-      <a href="https://app.tryaisly.com" class="price-btn outline">Inizia gratis</a>
+      <a href="https://app.tryaisly.com" class="price-btn outline">Start free</a>
     </div>
   </div>
   <div style="margin-top:48px;">
-    <div style="font-size:12px;color:var(--gray);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;">Top-up messaggi — per i mesi ad alto traffico</div>
+    <div style="font-size:12px;color:var(--gray);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px;">Message top-ups — for high-traffic months</div>
     <div class="topup-grid">
       <div class="topup-card">
-        <div><div class="topup-name">+500 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div><div class="topup-name">+500 messages</div><div class="topup-unit">one-time · adds to your plan</div></div>
         <div class="topup-price">€9</div>
       </div>
       <div class="topup-card">
-        <div><div class="topup-name">+1.000 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div><div class="topup-name">+1,000 messages</div><div class="topup-unit">one-time · adds to your plan</div></div>
         <div class="topup-price">€15</div>
       </div>
       <div class="topup-card">
-        <div><div class="topup-name">+2.500 messaggi</div><div class="topup-unit">una tantum · si sommano al piano</div></div>
+        <div><div class="topup-name">+2,500 messages</div><div class="topup-unit">one-time · adds to your plan</div></div>
         <div class="topup-price">€29</div>
       </div>
     </div>
   </div>
   <div style="margin-top:80px;">
-    <div class="section-label">Installazione</div>
-    <h3 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:12px;">Una riga. Davvero.</h3>
-    <p style="font-size:14px;color:var(--gray);margin-bottom:0;">Incolla questo snippet nel tuo tema Shopify prima di &lt;/body&gt; e il widget è live.</p>
+    <div class="section-label">Installation</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:12px;">One line. Really.</h3>
+    <p style="font-size:14px;color:var(--gray);margin-bottom:0;">Paste this snippet into your Shopify theme before &lt;/body&gt; and the widget is live.</p>
     <div class="snippet-wrap">
       <div class="snippet-header">
         <div class="snippet-dot" style="background:#ff5f56;"></div>
@@ -491,75 +467,11 @@
   </div>
 </section>
 
-<!-- AGENZIE — feature disattivata (nessun cliente attivo), sezione lasciata
-     intatta commentata per una futura riattivazione
-<div class="agency-section" id="agenzie">
-  <div class="agency-inner">
-    <div class="section-label">Per le agenzie</div>
-    <h2 class="section-title">Gestisci tutti i<br>tuoi clienti <em style="font-style:italic;color:var(--green-light)">da un posto solo.</em></h2>
-    <p class="section-sub">Se gestisci più negozi Shopify per i tuoi clienti, Aisly ha un piano pensato per te. Un account, tutti gli shop, white label completo.</p>
-
-    <div class="agency-grid">
-      <div>
-        <ul class="agency-feature-list">
-          <li>Un unico account per gestire fino a 15 shop clienti</li>
-          <li>White label completo — ogni shop ha il suo nome bot, colore e lingua</li>
-          <li>Sincronizzazione automatica del catalogo al momento della creazione</li>
-          <li>Snippet dedicato per ogni shop, pronto da consegnare al cliente</li>
-          <li>Pool messaggi condiviso tra tutti gli shop — nessuno spreco</li>
-          <li>Top-up messaggi in blocchi da 5.000, 15.000 e 50.000</li>
-          <li>Dashboard separata per agenzie con vista d'insieme su tutti gli shop</li>
-        </ul>
-        <div style="margin-top:40px;">
-          <a href="https://app.tryaisly.com" class="btn-primary">Crea account agenzia →</a>
-        </div>
-      </div>
-
-      <div>
-        <div class="agency-plans">
-          <div class="agency-plan-card">
-            <div class="agency-plan-name">Agency Starter</div>
-            <div class="agency-plan-price">€149<span>/mese</span></div>
-            <div class="agency-plan-detail">Fino a 5 shop · 5.000 messaggi/mese condivisi</div>
-            <a href="https://app.tryaisly.com" class="agency-plan-btn">Inizia</a>
-          </div>
-          <div class="agency-plan-card featured">
-            <div class="agency-plan-name">Agency Pro</div>
-            <div class="agency-plan-price">€349<span>/mese</span></div>
-            <div class="agency-plan-detail">Fino a 15 shop · 15.000 messaggi/mese condivisi</div>
-            <a href="https://app.tryaisly.com" class="agency-plan-btn solid">Inizia</a>
-          </div>
-        </div>
-        <div style="margin-top:16px;padding:20px;background:#0e0e0e;border:1px solid var(--border);border-radius:10px;">
-          <div style="font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;">Top-up agenzia</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray);padding:6px 0;border-bottom:1px solid #111;">
-              <span>+5.000 messaggi</span><span style="color:var(--green-light);font-weight:700;">€69</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray);padding:6px 0;border-bottom:1px solid #111;">
-              <span>+15.000 messaggi</span><span style="color:var(--green-light);font-weight:700;">€199</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray);padding:6px 0;">
-              <span>+50.000 messaggi</span><span style="color:var(--green-light);font-weight:700;">€749</span>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:16px;padding:16px 20px;background:rgba(29,158,117,0.06);border:1px solid rgba(110,231,183,0.15);border-radius:10px;">
-          <div style="font-size:12px;color:var(--green-light);margin-bottom:4px;">Hai più di 15 shop?</div>
-          <div style="font-size:12px;color:var(--gray);">Contattaci per un piano Agency Scale su misura.</div>
-          <a href="mailto:hello@tryaisly.com" style="font-size:12px;color:var(--green-light);text-decoration:none;display:inline-block;margin-top:8px;">hello@tryaisly.com →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
 <!-- CTA -->
 <div class="cta-section">
-  <h2 class="cta-title">Inizia a<br><em>vendere di più</em><br>da oggi.</h2>
-  <p class="cta-sub">14 giorni gratis. Nessuna carta di credito richiesta. Cancella quando vuoi.</p>
-  <a href="https://app.tryaisly.com" class="btn-primary" style="font-size:15px;padding:18px 48px;">Crea il tuo account gratis →</a>
+  <h2 class="cta-title">Start<br><em>selling more</em><br>today.</h2>
+  <p class="cta-sub">14 days free. No credit card required. Cancel anytime.</p>
+  <a href="https://app.tryaisly.com" class="btn-primary" style="font-size:15px;padding:18px 48px;">Create your free account →</a>
 </div>
 
 <!-- FOOTER -->
@@ -567,31 +479,30 @@
   <div class="footer-top">
     <div>
       <div class="footer-logo">aisly<span>.</span></div>
-      <div class="footer-tagline">Il personal shopper AI per Shopify</div>
+      <div class="footer-tagline">The AI personal shopper for Shopify</div>
     </div>
     <div class="footer-col">
-      <h4>Prodotto</h4>
-      <a href="#come-funziona">Come funziona</a>
-      <a href="#funzionalita">Funzionalità</a>
-      <a href="#prezzi">Prezzi</a>
-      <!-- Feature agenzie disattivata — <a href="#agenzie">Per le agenzie</a> -->
+      <h4>Product</h4>
+      <a href="#how-it-works">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
     </div>
     <div class="footer-col">
       <h4>Account</h4>
       <a href="https://app.tryaisly.com">Dashboard</a>
-      <a href="https://app.tryaisly.com">Registrati gratis</a>
+      <a href="https://app.tryaisly.com">Sign up free</a>
     </div>
     <div class="footer-col">
-      <h4>Supporto</h4>
-      <a href="mailto:hello@tryaisly.com">Contattaci</a>
+      <h4>Support</h4>
+      <a href="mailto:hello@tryaisly.com">Contact us</a>
       <a href="mailto:hello@tryaisly.com">hello@tryaisly.com</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Aisly · tryaisly.com · P.IVA in corso di registrazione</div>
+    <div class="footer-copy">© 2026 Aisly · tryaisly.com</div>
     <div class="footer-legal">
       <a href="/privacy">Privacy Policy</a>
-      <a href="/termini">Termini di Servizio</a>
+      <a href="/termini">Terms of Service</a>
       <a href="/cookie">Cookie Policy</a>
     </div>
   </div>
