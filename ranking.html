@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come funziona il ranking — Aisly</title>
+<meta name="description" content="Il motore di ranking di Aisly non si ferma alla similarità testuale: impara da cosa i clienti aggiungono davvero al carrello. Ecco la formula, e una simulazione di cosa può fare.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --black: #080808;
+    --white: #f0ece4;
+    --green: #1D9E75;
+    --green-light: #6ee7b7;
+    --amber: #BA7517;
+    --amber-light: #e0a955;
+    --gray: #888780;
+    --border: #1a1a1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'JetBrains Mono', monospace; line-height: 1.7; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(8,8,8,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: var(--white); text-decoration: none; letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--green-light); }
+  .nav-links { display: flex; gap: 16px; align-items: center; }
+  .back-link { color: var(--gray); font-size: 11px; text-decoration: none; border: 1px solid #333; border-radius: 4px; padding: 6px 12px; transition: all 0.2s; }
+  .back-link:hover { color: var(--white); border-color: var(--green-light); }
+  .nav-cta { background: var(--green-light); color: var(--black); border: none; padding: 10px 20px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.1s; }
+  .nav-cta:hover { background: #8ff5cf; transform: translateY(-1px); }
+
+  .content { max-width: 880px; margin: 0 auto; padding: 150px 48px 0; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(29,158,117,0.1); border: 1px solid rgba(110,231,183,0.2); border-radius: 20px; padding: 6px 16px; font-size: 11px; color: var(--green-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -1px; margin-bottom: 20px; }
+  h1 em { font-style: italic; color: var(--green-light); }
+  .dek { font-size: 15px; color: var(--gray); line-height: 1.8; max-width: 62ch; margin-bottom: 40px; }
+
+  .flag { display: flex; gap: 12px; align-items: flex-start; background: rgba(186,117,23,0.08); border: 1px solid rgba(224,169,85,0.25); border-left: 3px solid var(--amber-light); border-radius: 8px; padding: 16px 20px; font-size: 13px; color: var(--white); line-height: 1.7; margin-bottom: 56px; }
+  .flag b { color: var(--amber-light); }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 80px; }
+  .stat-card { background: #0e0e0e; padding: 28px 22px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; color: var(--green-light); line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--gray); margin-top: 10px; line-height: 1.6; }
+
+  section.block { margin-bottom: 80px; }
+  .section-label { font-size: 11px; color: var(--green-light); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; }
+  h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .section-sub { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .charts { grid-template-columns: 1fr; } .stats-row { grid-template-columns: 1fr; } }
+  .chart-card { background: #0e0e0e; border: 1px solid var(--border); border-radius: 16px; padding: 24px 24px 18px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+  .chart-sub { font-size: 11px; color: var(--gray); margin-bottom: 14px; }
+  svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+  .grid-line { stroke: var(--border); stroke-width: 1; }
+  .axis-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: var(--gray); }
+  .series-adaptive { fill: none; stroke: var(--green-light); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+  .series-static { fill: none; stroke: var(--amber-light); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 4 3; }
+  .legend { display: flex; gap: 16px; font-size: 11px; color: var(--gray); margin-top: 14px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 2px; display: inline-block; background: var(--green-light); }
+  .swatch.warm { background: var(--amber-light); }
+
+  .formula-box { background: #0e0e0e; border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; }
+  .formula { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--green-light); background: rgba(29,158,117,0.08); border: 1px solid rgba(110,231,183,0.15); padding: 14px 16px; border-radius: 8px; overflow-x: auto; white-space: pre; margin-bottom: 16px; }
+  .formula-caption { font-size: 13px; color: var(--gray); line-height: 1.8; }
+  .formula-caption code { font-family: 'JetBrains Mono', monospace; background: #161616; padding: 1px 6px; border-radius: 4px; font-size: 0.9em; color: var(--white); }
+  .formula-caption a { color: var(--green-light); text-decoration: none; }
+  .formula-caption a:hover { text-decoration: underline; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .table-scroll { overflow-x: auto; }
+  thead th { text-align: left; font-weight: 600; color: var(--gray); text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em; padding: 12px 16px; border-bottom: 1px solid var(--border); background: #111; white-space: nowrap; position: sticky; top: 0; }
+  tbody td { padding: 9px 16px; border-bottom: 1px solid #131313; white-space: nowrap; color: var(--white); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #111; }
+  td.num, th.num { text-align: right; }
+  .log-scroll { max-height: 320px; overflow-y: auto; }
+  .assumptions-note { font-size: 13px; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+
+  .closing { background: rgba(29,158,117,0.05); border: 1px solid rgba(110,231,183,0.18); border-radius: 16px; padding: 28px 30px; font-size: 14px; color: var(--white); line-height: 1.8; }
+  .closing p { margin-bottom: 12px; }
+  .closing p:last-child { margin-bottom: 0; }
+  .closing b { color: var(--green-light); }
+
+  .meta-strip { font-size: 11px; color: #555; margin: 20px 0 0; }
+
+  .cta-section { text-align: center; padding: 100px 48px; border-top: 1px solid var(--border); margin-top: 40px; }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+  .cta-title em { font-style: italic; color: var(--green-light); }
+  .cta-sub { font-size: 13px; color: var(--gray); margin-bottom: 32px; }
+  .btn-primary { background: var(--green-light); color: var(--black); border: none; padding: 16px 36px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: #8ff5cf; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(110,231,183,0.3); }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 48px 32px; max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 32px; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; }
+  .footer-logo span { color: var(--green-light); }
+  .footer-tagline { font-size: 12px; color: var(--gray); margin-top: 8px; }
+  .footer-col h4 { font-size: 11px; color: var(--white); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 12px; color: var(--gray); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-copy { font-size: 11px; color: var(--gray); }
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a { font-size: 11px; color: var(--gray); text-decoration: none; }
+  .footer-legal a:hover { color: var(--white); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .content { padding: 110px 24px 0; }
+    .footer-top { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">aisly<span>.</span></a>
+  <div class="nav-links">
+    <a href="/" class="back-link">← Home</a>
+    <a href="https://app.tryaisly.com" class="nav-cta">Inizia gratis →</a>
+  </div>
+</nav>
+
+<div class="content">
+  <div class="hero-badge">Sotto il cofano</div>
+  <h1>Il ranking non guarda solo <em>cosa dici</em>. Guarda cosa i clienti <em>comprano davvero</em>.</h1>
+  <p class="dek">Quando un cliente cerca qualcosa in chat, Aisly non si limita ad abbinare le parole al catalogo: pesa anche cosa i visitatori del tuo negozio hanno aggiunto davvero al carrello. Qui sotto la formula reale, e una simulazione di cosa può fare quando i dati comportamentali cominciano ad arrivare.</p>
+
+  <div class="flag">
+    <span>⚠</span>
+    <span><b>Quella qui sotto è una simulazione, non il caso di un cliente Aisly.</b> La similarità testuale è calcolata sui vettori reali del nostro catalogo dimostrativo; i tassi di conversione "veri" sono un'assunzione di scenario dichiarata, scelta per mostrare cosa il motore è in grado di fare — non un risultato già ottenuto da qualcuno. Il tuo negozio, il tuo traffico e i tuoi clienti determinano i numeri reali.</span>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">+65,9%</div>
+      <div class="stat-label">add-to-cart in più dopo 25 giorni simulati, ranking adattivo contro un ranking statico basato solo su similarità testuale</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">Giorno 7</div>
+      <div class="stat-label">quando il prodotto col miglior tasso di conversione simulato raggiunge la 1ª posizione, partendo dall'8ª</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">€600</div>
+      <div class="stat-label">prezzo del prodotto promosso: il più economico della sua fascia — la sola similarità testuale lo avrebbe lasciato a metà classifica</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="section-label">La simulazione</div>
+    <h2>La classifica si corregge da sola</h2>
+    <p class="section-sub">25 giorni simulati · 40 visitatori/giorno · le prime 4 posizioni mostrate ogni giorno</p>
+    <div class="charts">
+      <div class="chart-card">
+        <div class="chart-title">Posizione di "Collection Snowboard: Hydrogen"</div>
+        <div class="chart-sub">Per pura similarità testuale partiva 8ª su 12</div>
+        <svg class="chart" viewBox="0 0 700 210" preserveAspectRatio="xMidYMid meet">
+          <line class="grid-line" x1="34" y1="10" x2="34" y2="184"></line>
+          <line class="grid-line" x1="34" y1="10" x2="690" y2="10"></line>
+          <line class="grid-line" x1="34" y1="53.5" x2="690" y2="53.5"></line>
+          <line class="grid-line" x1="34" y1="97" x2="690" y2="97"></line>
+          <line class="grid-line" x1="34" y1="140.5" x2="690" y2="140.5"></line>
+          <line class="grid-line" x1="34" y1="184" x2="690" y2="184"></line>
+          <text class="axis-label" x="0" y="13">1ª</text>
+          <text class="axis-label" x="0" y="56.5">3ª</text>
+          <text class="axis-label" x="0" y="100">5ª</text>
+          <text class="axis-label" x="0" y="143.5">7ª</text>
+          <text class="axis-label" x="0" y="187">9ª</text>
+          <text class="axis-label" x="30" y="200">g.1</text>
+          <text class="axis-label" x="252" y="200">g.13</text>
+          <text class="axis-label" x="470" y="200">g.19</text>
+          <text class="axis-label" x="670" y="200">g.25</text>
+          <polyline class="series-adaptive" points="34.0,162.2 61.3,75.2 88.7,53.5 116.0,53.5 143.3,31.8 170.7,31.8 198.0,10.0 225.3,31.8 252.7,31.8 280.0,10.0 307.3,10.0 334.7,10.0 362.0,10.0 389.3,10.0 416.7,10.0 444.0,10.0 471.3,31.8 498.7,31.8 526.0,31.8 553.3,31.8 580.7,31.8 608.0,31.8 635.3,31.8 662.7,31.8 690.0,31.8"></polyline>
+          <circle cx="690.0" cy="31.8" r="3.5" fill="var(--green-light)"></circle>
+        </svg>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Add-to-cart cumulati</div>
+        <div class="chart-sub">Motore adattivo contro ranking statico (solo similarità)</div>
+        <svg class="chart" viewBox="0 0 700 210" preserveAspectRatio="xMidYMid meet">
+          <line class="grid-line" x1="34" y1="10" x2="34" y2="184"></line>
+          <line class="grid-line" x1="34" y1="10" x2="690" y2="10"></line>
+          <line class="grid-line" x1="34" y1="68" x2="690" y2="68"></line>
+          <line class="grid-line" x1="34" y1="126" x2="690" y2="126"></line>
+          <line class="grid-line" x1="34" y1="184" x2="690" y2="184"></line>
+          <text class="axis-label" x="0" y="13">150</text>
+          <text class="axis-label" x="4" y="71">100</text>
+          <text class="axis-label" x="10" y="129">50</text>
+          <text class="axis-label" x="16" y="187">0</text>
+          <text class="axis-label" x="30" y="200">g.1</text>
+          <text class="axis-label" x="252" y="200">g.13</text>
+          <text class="axis-label" x="470" y="200">g.19</text>
+          <text class="axis-label" x="670" y="200">g.25</text>
+          <polyline class="series-static" points="34.0,180.5 61.3,172.4 88.7,170.1 116.0,163.1 143.3,160.8 170.7,159.6 198.0,152.7 225.3,148.0 252.7,141.1 280.0,139.9 307.3,135.3 334.7,133.0 362.0,129.5 389.3,126.0 416.7,122.5 444.0,115.6 471.3,114.4 498.7,106.3 526.0,102.8 553.3,100.5 580.7,98.2 608.0,94.7 635.3,88.9 662.7,85.4 690.0,81.9"></polyline>
+          <polyline class="series-adaptive" points="34.0,178.2 61.3,168.9 88.7,166.6 116.0,158.5 143.3,151.5 170.7,144.6 198.0,134.1 225.3,130.6 252.7,117.9 280.0,109.8 307.3,100.5 334.7,97.0 362.0,87.7 389.3,80.8 416.7,71.5 444.0,65.7 471.3,58.7 498.7,56.4 526.0,50.6 553.3,47.1 580.7,43.6 608.0,37.8 635.3,29.7 662.7,22.8 690.0,14.6"></polyline>
+          <circle cx="690.0" cy="14.6" r="3.5" fill="var(--green-light)"></circle>
+          <circle cx="690.0" cy="81.9" r="3.5" fill="var(--amber-light)"></circle>
+        </svg>
+        <div class="legend">
+          <span><span class="swatch"></span>adattivo (146)</span>
+          <span><span class="swatch warm"></span>statico (88)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">La formula</div>
+    <h2>Nessuna riscrittura per questa pagina</h2>
+    <p class="section-sub">È la stessa funzione SQL che gira in produzione, non una versione semplificata</p>
+    <div class="formula-box">
+      <div class="formula">score = similarity × ( 1 + (add_to_carts + 1) / (impressions + 5) )</div>
+      <div class="formula-caption">
+        <code>similarity</code> è la similarità coseno reale tra l'embedding del prodotto e quello della ricerca (pgvector). Lo smoothing bayesiano — un prior debole, 1 carrello ogni 5 impression "immaginarie" — impedisce a un prodotto senza storico di restare a zero, e a uno con pochissimi dati di dominare per rumore statistico. Gira in <code>sql/002_personalized_ranking.sql</code>, la stessa funzione che alimenta la <a href="/#funzionalita">dashboard di analytics avanzate</a> con cui vedi cosa converte davvero.
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Le ipotesi</div>
+    <h2>Cosa abbiamo assunto per lo scenario</h2>
+    <p class="assumptions-note">Per ogni prodotto: la similarità è reale. Il tasso di add-to-cart "vero" è un'assunzione dichiarata — non un dato osservato — scelta per rappresentare un fenomeno comune nell'e-commerce: un prodotto semanticamente a metà classifica può convertire molto più (o meno) di quanto il testo da solo suggerisca.</p>
+    <div class="table-wrap">
+      <div class="table-scroll log-scroll">
+        <table>
+          <thead>
+            <tr><th>Prodotto</th><th class="num">Similarità reale</th><th class="num">Tasso conversione assunto</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The Multi-managed Snowboard</td><td class="num">0.9450</td><td class="num">4.0%</td></tr>
+            <tr><td>The Multi-location Snowboard</td><td class="num">0.9387</td><td class="num">3.5%</td></tr>
+            <tr><td>The 3p Fulfilled Snowboard</td><td class="num">0.9205</td><td class="num">1.0%</td></tr>
+            <tr><td>The Out of Stock Snowboard</td><td class="num">0.9077</td><td class="num">0.5%</td></tr>
+            <tr><td>The Collection Snowboard: Oxygen</td><td class="num">0.9030</td><td class="num">3.0%</td></tr>
+            <tr><td>The Compare at Price Snowboard</td><td class="num">0.9000</td><td class="num">2.0%</td></tr>
+            <tr><td>The Inventory Not Tracked Snowboard</td><td class="num">0.8923</td><td class="num">2.0%</td></tr>
+            <tr><td>The Collection Snowboard: Hydrogen</td><td class="num">0.8919</td><td class="num">9.0%</td></tr>
+            <tr><td>The Collection Snowboard: Liquid</td><td class="num">0.8906</td><td class="num">3.0%</td></tr>
+            <tr><td>The Videographer Snowboard</td><td class="num">0.8362</td><td class="num">1.5%</td></tr>
+            <tr><td>Selling Plans Ski Wax</td><td class="num">0.7952</td><td class="num">0.5%</td></tr>
+            <tr><td>Gift Card</td><td class="num">0.6941</td><td class="num">0.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Il dettaglio</div>
+    <h2>Log giorno per giorno</h2>
+    <p class="section-sub">Cosa il motore avrebbe mostrato in 1ª posizione quel giorno, e il conteggio cumulato nei due scenari</p>
+    <div class="table-wrap">
+      <div class="table-scroll log-scroll">
+        <table>
+          <thead>
+            <tr><th>Giorno</th><th>1ª posizione (adattivo)</th><th class="num">Rank Hydrogen</th><th class="num">Add/g adattivo</th><th class="num">Add/g statico</th><th class="num">Cum. adattivo</th><th class="num">Cum. statico</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>The Multi-managed Snowboard</td><td class="num">8</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num">3</td></tr>
+            <tr><td>2</td><td>The Collection Snowboard: Oxygen</td><td class="num">4</td><td class="num">8</td><td class="num">7</td><td class="num">13</td><td class="num">10</td></tr>
+            <tr><td>3</td><td>The Collection Snowboard: Liquid</td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">15</td><td class="num">12</td></tr>
+            <tr><td>4</td><td>The Multi-location Snowboard</td><td class="num">3</td><td class="num">7</td><td class="num">6</td><td class="num">22</td><td class="num">18</td></tr>
+            <tr><td>5</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">6</td><td class="num">2</td><td class="num">28</td><td class="num">20</td></tr>
+            <tr><td>6</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">6</td><td class="num">1</td><td class="num">34</td><td class="num">21</td></tr>
+            <tr><td>7</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">9</td><td class="num">6</td><td class="num">43</td><td class="num">27</td></tr>
+            <tr><td>8</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">3</td><td class="num">4</td><td class="num">46</td><td class="num">31</td></tr>
+            <tr><td>9</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">11</td><td class="num">6</td><td class="num">57</td><td class="num">37</td></tr>
+            <tr><td>10</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">7</td><td class="num">1</td><td class="num">64</td><td class="num">38</td></tr>
+            <tr><td>11</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">8</td><td class="num">4</td><td class="num">72</td><td class="num">42</td></tr>
+            <tr><td>12</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">3</td><td class="num">2</td><td class="num">75</td><td class="num">44</td></tr>
+            <tr><td>13</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">8</td><td class="num">3</td><td class="num">83</td><td class="num">47</td></tr>
+            <tr><td>14</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">6</td><td class="num">3</td><td class="num">89</td><td class="num">50</td></tr>
+            <tr><td>15</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">8</td><td class="num">3</td><td class="num">97</td><td class="num">53</td></tr>
+            <tr><td>16</td><td>The Collection Snowboard: Hydrogen</td><td class="num">1</td><td class="num">5</td><td class="num">6</td><td class="num">102</td><td class="num">59</td></tr>
+            <tr><td>17</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">6</td><td class="num">1</td><td class="num">108</td><td class="num">60</td></tr>
+            <tr><td>18</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">2</td><td class="num">7</td><td class="num">110</td><td class="num">67</td></tr>
+            <tr><td>19</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">5</td><td class="num">3</td><td class="num">115</td><td class="num">70</td></tr>
+            <tr><td>20</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">118</td><td class="num">72</td></tr>
+            <tr><td>21</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">121</td><td class="num">74</td></tr>
+            <tr><td>22</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">5</td><td class="num">3</td><td class="num">126</td><td class="num">77</td></tr>
+            <tr><td>23</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">7</td><td class="num">5</td><td class="num">133</td><td class="num">82</td></tr>
+            <tr><td>24</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">6</td><td class="num">3</td><td class="num">139</td><td class="num">85</td></tr>
+            <tr><td>25</td><td>The Multi-managed Snowboard</td><td class="num">2</td><td class="num">7</td><td class="num">3</td><td class="num">146</td><td class="num">88</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="closing">
+      <p><b>Cosa dimostra, e cosa no.</b> Dimostra che la funzione di scoring reale, senza alcuna modifica, sposta il ranking verso ciò che converte davvero man mano che arrivano eventi comportamentali — con similarità genuina e ipotesi di conversione dichiarate in chiaro qui sopra.</p>
+      <p>Non dimostra un risultato per il tuo negozio: traffico, catalogo e comportamento effettivo dei clienti variano, e nessun numero qui sopra è una promessa di performance.</p>
+    </div>
+    <p class="meta-strip">Catalogo dimostrativo aisly-test · 13 prodotti embeddati · seed simulazione 42 · query di riferimento: similarità con "The Complete Snowboard"</p>
+  </section>
+</div>
+
+<div class="cta-section">
+  <h2 class="cta-title">Il ranking impara<br>da <em>ogni carrello</em>.</h2>
+  <p class="cta-sub">14 giorni gratis. Nessuna carta di credito richiesta. Cancella quando vuoi.</p>
+  <a href="https://app.tryaisly.com" class="btn-primary">Crea il tuo account gratis →</a>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">aisly<span>.</span></div>
+      <div class="footer-tagline">Il personal shopper AI per Shopify</div>
+    </div>
+    <div class="footer-col">
+      <h4>Prodotto</h4>
+      <a href="/#come-funziona">Come funziona</a>
+      <a href="/#funzionalita">Funzionalità</a>
+      <a href="/#prezzi">Prezzi</a>
+      <a href="/ranking">Come funziona il ranking</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="https://app.tryaisly.com">Dashboard</a>
+      <a href="https://app.tryaisly.com">Registrati gratis</a>
+    </div>
+    <div class="footer-col">
+      <h4>Supporto</h4>
+      <a href="mailto:hello@tryaisly.com">Contattaci</a>
+      <a href="mailto:hello@tryaisly.com">hello@tryaisly.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Aisly · tryaisly.com · P.IVA in corso di registrazione</div>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/termini">Termini di Servizio</a>
+      <a href="/cookie">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
