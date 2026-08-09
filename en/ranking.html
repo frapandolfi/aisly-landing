@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come funziona il ranking — Aisly</title>
-<meta name="description" content="Il motore di ranking di Aisly non si ferma alla similarità testuale: impara da cosa i clienti aggiungono davvero al carrello. Ecco la formula, e una simulazione di cosa può fare.">
+<title>How the ranking works — Aisly</title>
+<meta name="description" content="Aisly's ranking engine doesn't stop at text similarity: it learns from what customers actually add to cart. Here's the formula, and a simulation of what it can do.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -126,47 +126,47 @@
 <body>
 
 <nav>
-  <a href="/" class="nav-logo">aisly<span>.</span></a>
+  <a href="/en" class="nav-logo">aisly<span>.</span></a>
   <div class="nav-links">
-    <a href="/" class="back-link">← Home</a>
-    <a href="/en/ranking" class="lang-switch">EN</a>
-    <a href="https://app.tryaisly.com" class="nav-cta">Inizia gratis →</a>
+    <a href="/en" class="back-link">← Home</a>
+    <a href="/ranking" class="lang-switch">IT</a>
+    <a href="https://app.tryaisly.com?lang=en" class="nav-cta">Start free →</a>
   </div>
 </nav>
 
 <div class="content">
-  <div class="hero-badge">Sotto il cofano</div>
-  <h1>Il ranking non guarda solo <em>cosa dici</em>. Guarda cosa i clienti <em>comprano davvero</em>.</h1>
-  <p class="dek">Quando un cliente cerca qualcosa in chat, Aisly non si limita ad abbinare le parole al catalogo: pesa anche cosa i visitatori del tuo negozio hanno aggiunto davvero al carrello. Qui sotto la formula reale, e una simulazione di cosa può fare quando i dati comportamentali cominciano ad arrivare.</p>
+  <div class="hero-badge">Under the hood</div>
+  <h1>The ranking doesn't just look at <em>what you type</em>. It looks at what customers <em>actually buy</em>.</h1>
+  <p class="dek">When a customer searches for something in chat, Aisly doesn't just match keywords against your catalog: it also weighs what real visitors to your store have actually added to their cart. Below is the real formula, and a simulation of what it can do once behavioral data starts coming in.</p>
 
   <div class="flag">
     <span>⚠</span>
-    <span><b>Quella qui sotto è una simulazione, non il caso di un cliente Aisly.</b> La similarità testuale è calcolata sui vettori reali del nostro catalogo dimostrativo; i tassi di conversione "veri" sono un'assunzione di scenario dichiarata, scelta per mostrare cosa il motore è in grado di fare — non un risultato già ottenuto da qualcuno. Il tuo negozio, il tuo traffico e i tuoi clienti determinano i numeri reali.</span>
+    <span><b>What's below is a simulation, not the result of an actual Aisly customer.</b> Text similarity is computed on the real vectors of our demo catalog; the "true" conversion rates are a declared scenario assumption, chosen to show what the engine is capable of — not a result already achieved by someone. Your store, your traffic, and your customers determine the real numbers.</span>
   </div>
 
   <div class="stats-row">
     <div class="stat-card">
-      <div class="stat-num">+65,9%</div>
-      <div class="stat-label">add-to-cart in più dopo 25 giorni simulati, ranking adattivo contro un ranking statico basato solo su similarità testuale</div>
+      <div class="stat-num">+65.9%</div>
+      <div class="stat-label">more add-to-carts after 25 simulated days, adaptive ranking vs. a static ranking based on text similarity alone</div>
     </div>
     <div class="stat-card">
-      <div class="stat-num">Giorno 7</div>
-      <div class="stat-label">quando il prodotto col miglior tasso di conversione simulato raggiunge la 1ª posizione, partendo dall'8ª</div>
+      <div class="stat-num">Day 7</div>
+      <div class="stat-label">when the product with the best simulated conversion rate reaches 1st place, starting from 8th</div>
     </div>
     <div class="stat-card">
-      <div class="stat-num">€600</div>
-      <div class="stat-label">prezzo del prodotto promosso: il più economico della sua fascia — la sola similarità testuale lo avrebbe lasciato a metà classifica</div>
+      <div class="stat-num">$600</div>
+      <div class="stat-label">price of the promoted product: the cheapest in its range — text similarity alone would have left it stuck mid-ranking</div>
     </div>
   </div>
 
   <section class="block">
-    <div class="section-label">La simulazione</div>
-    <h2>La classifica si corregge da sola</h2>
-    <p class="section-sub">25 giorni simulati · 40 visitatori/giorno · le prime 4 posizioni mostrate ogni giorno</p>
+    <div class="section-label">The simulation</div>
+    <h2>The ranking corrects itself</h2>
+    <p class="section-sub">25 simulated days · 40 visitors/day · top 4 positions shown each day</p>
     <div class="charts">
       <div class="chart-card">
-        <div class="chart-title">Posizione di "Collection Snowboard: Hydrogen"</div>
-        <div class="chart-sub">Per pura similarità testuale partiva 8ª su 12</div>
+        <div class="chart-title">Position of "Collection Snowboard: Hydrogen"</div>
+        <div class="chart-sub">By pure text similarity it started 8th out of 12</div>
         <svg class="chart" viewBox="0 0 700 210" preserveAspectRatio="xMidYMid meet">
           <line class="grid-line" x1="34" y1="10" x2="34" y2="184"></line>
           <line class="grid-line" x1="34" y1="10" x2="690" y2="10"></line>
@@ -174,22 +174,22 @@
           <line class="grid-line" x1="34" y1="97" x2="690" y2="97"></line>
           <line class="grid-line" x1="34" y1="140.5" x2="690" y2="140.5"></line>
           <line class="grid-line" x1="34" y1="184" x2="690" y2="184"></line>
-          <text class="axis-label" x="0" y="13">1ª</text>
-          <text class="axis-label" x="0" y="56.5">3ª</text>
-          <text class="axis-label" x="0" y="100">5ª</text>
-          <text class="axis-label" x="0" y="143.5">7ª</text>
-          <text class="axis-label" x="0" y="187">9ª</text>
-          <text class="axis-label" x="30" y="200">g.1</text>
-          <text class="axis-label" x="252" y="200">g.13</text>
-          <text class="axis-label" x="470" y="200">g.19</text>
-          <text class="axis-label" x="670" y="200">g.25</text>
+          <text class="axis-label" x="0" y="13">1st</text>
+          <text class="axis-label" x="0" y="56.5">3rd</text>
+          <text class="axis-label" x="0" y="100">5th</text>
+          <text class="axis-label" x="0" y="143.5">7th</text>
+          <text class="axis-label" x="0" y="187">9th</text>
+          <text class="axis-label" x="30" y="200">d.1</text>
+          <text class="axis-label" x="252" y="200">d.13</text>
+          <text class="axis-label" x="470" y="200">d.19</text>
+          <text class="axis-label" x="670" y="200">d.25</text>
           <polyline class="series-adaptive" points="34.0,162.2 61.3,75.2 88.7,53.5 116.0,53.5 143.3,31.8 170.7,31.8 198.0,10.0 225.3,31.8 252.7,31.8 280.0,10.0 307.3,10.0 334.7,10.0 362.0,10.0 389.3,10.0 416.7,10.0 444.0,10.0 471.3,31.8 498.7,31.8 526.0,31.8 553.3,31.8 580.7,31.8 608.0,31.8 635.3,31.8 662.7,31.8 690.0,31.8"></polyline>
           <circle cx="690.0" cy="31.8" r="3.5" fill="var(--green-light)"></circle>
         </svg>
       </div>
       <div class="chart-card">
-        <div class="chart-title">Add-to-cart cumulati</div>
-        <div class="chart-sub">Motore adattivo contro ranking statico (solo similarità)</div>
+        <div class="chart-title">Cumulative add-to-carts</div>
+        <div class="chart-sub">Adaptive engine vs. static ranking (similarity only)</div>
         <svg class="chart" viewBox="0 0 700 210" preserveAspectRatio="xMidYMid meet">
           <line class="grid-line" x1="34" y1="10" x2="34" y2="184"></line>
           <line class="grid-line" x1="34" y1="10" x2="690" y2="10"></line>
@@ -200,44 +200,44 @@
           <text class="axis-label" x="4" y="71">100</text>
           <text class="axis-label" x="10" y="129">50</text>
           <text class="axis-label" x="16" y="187">0</text>
-          <text class="axis-label" x="30" y="200">g.1</text>
-          <text class="axis-label" x="252" y="200">g.13</text>
-          <text class="axis-label" x="470" y="200">g.19</text>
-          <text class="axis-label" x="670" y="200">g.25</text>
+          <text class="axis-label" x="30" y="200">d.1</text>
+          <text class="axis-label" x="252" y="200">d.13</text>
+          <text class="axis-label" x="470" y="200">d.19</text>
+          <text class="axis-label" x="670" y="200">d.25</text>
           <polyline class="series-static" points="34.0,180.5 61.3,172.4 88.7,170.1 116.0,163.1 143.3,160.8 170.7,159.6 198.0,152.7 225.3,148.0 252.7,141.1 280.0,139.9 307.3,135.3 334.7,133.0 362.0,129.5 389.3,126.0 416.7,122.5 444.0,115.6 471.3,114.4 498.7,106.3 526.0,102.8 553.3,100.5 580.7,98.2 608.0,94.7 635.3,88.9 662.7,85.4 690.0,81.9"></polyline>
           <polyline class="series-adaptive" points="34.0,178.2 61.3,168.9 88.7,166.6 116.0,158.5 143.3,151.5 170.7,144.6 198.0,134.1 225.3,130.6 252.7,117.9 280.0,109.8 307.3,100.5 334.7,97.0 362.0,87.7 389.3,80.8 416.7,71.5 444.0,65.7 471.3,58.7 498.7,56.4 526.0,50.6 553.3,47.1 580.7,43.6 608.0,37.8 635.3,29.7 662.7,22.8 690.0,14.6"></polyline>
           <circle cx="690.0" cy="14.6" r="3.5" fill="var(--green-light)"></circle>
           <circle cx="690.0" cy="81.9" r="3.5" fill="var(--amber-light)"></circle>
         </svg>
         <div class="legend">
-          <span><span class="swatch"></span>adattivo (146)</span>
-          <span><span class="swatch warm"></span>statico (88)</span>
+          <span><span class="swatch"></span>adaptive (146)</span>
+          <span><span class="swatch warm"></span>static (88)</span>
         </div>
       </div>
     </div>
   </section>
 
   <section class="block">
-    <div class="section-label">La formula</div>
-    <h2>Nessuna riscrittura per questa pagina</h2>
-    <p class="section-sub">È la stessa funzione SQL che gira in produzione, non una versione semplificata</p>
+    <div class="section-label">The formula</div>
+    <h2>No rewrite for this page</h2>
+    <p class="section-sub">It's the same SQL function running in production, not a simplified version</p>
     <div class="formula-box">
       <div class="formula">score = similarity × ( 1 + (add_to_carts + 1) / (impressions + 5) )</div>
       <div class="formula-caption">
-        <code>similarity</code> è la similarità coseno reale tra l'embedding del prodotto e quello della ricerca (pgvector). Lo smoothing bayesiano — un prior debole, 1 carrello ogni 5 impression "immaginarie" — impedisce a un prodotto senza storico di restare a zero, e a uno con pochissimi dati di dominare per rumore statistico. Gira in <code>sql/002_personalized_ranking.sql</code>, la stessa funzione che alimenta la <a href="/#funzionalita">dashboard di analytics avanzate</a> con cui vedi cosa converte davvero.
+        <code>similarity</code> is the real cosine similarity between the product's embedding and the search's (pgvector). Bayesian smoothing — a weak prior, 1 cart add per 5 "imaginary" impressions — keeps a product with no history from sitting at zero, and one with very little data from dominating on statistical noise. It runs in <code>sql/002_personalized_ranking.sql</code>, the same function that powers the <a href="/en#features">advanced analytics dashboard</a> where you see what actually converts.
       </div>
     </div>
   </section>
 
   <section class="block">
-    <div class="section-label">Le ipotesi</div>
-    <h2>Cosa abbiamo assunto per lo scenario</h2>
-    <p class="assumptions-note">Per ogni prodotto: la similarità è reale. Il tasso di add-to-cart "vero" è un'assunzione dichiarata — non un dato osservato — scelta per rappresentare un fenomeno comune nell'e-commerce: un prodotto semanticamente a metà classifica può convertire molto più (o meno) di quanto il testo da solo suggerisca.</p>
+    <div class="section-label">The assumptions</div>
+    <h2>What we assumed for the scenario</h2>
+    <p class="assumptions-note">For every product: similarity is real. The "true" add-to-cart rate is a declared assumption — not observed data — chosen to represent a common e-commerce phenomenon: a product that's mid-pack by semantic similarity can convert far more (or less) than the text alone would suggest.</p>
     <div class="table-wrap">
       <div class="table-scroll log-scroll">
         <table>
           <thead>
-            <tr><th>Prodotto</th><th class="num">Similarità reale</th><th class="num">Tasso conversione assunto</th></tr>
+            <tr><th>Product</th><th class="num">Real similarity</th><th class="num">Assumed conversion rate</th></tr>
           </thead>
           <tbody>
             <tr><td>The Multi-managed Snowboard</td><td class="num">0.9450</td><td class="num">4.0%</td></tr>
@@ -259,14 +259,14 @@
   </section>
 
   <section class="block">
-    <div class="section-label">Il dettaglio</div>
-    <h2>Log giorno per giorno</h2>
-    <p class="section-sub">Cosa il motore avrebbe mostrato in 1ª posizione quel giorno, e il conteggio cumulato nei due scenari</p>
+    <div class="section-label">The detail</div>
+    <h2>Day-by-day log</h2>
+    <p class="section-sub">What the engine would have shown in 1st place that day, and the cumulative count under both scenarios</p>
     <div class="table-wrap">
       <div class="table-scroll log-scroll">
         <table>
           <thead>
-            <tr><th>Giorno</th><th>1ª posizione (adattivo)</th><th class="num">Rank Hydrogen</th><th class="num">Add/g adattivo</th><th class="num">Add/g statico</th><th class="num">Cum. adattivo</th><th class="num">Cum. statico</th></tr>
+            <tr><th>Day</th><th>1st place (adaptive)</th><th class="num">Hydrogen rank</th><th class="num">Adds/day adaptive</th><th class="num">Adds/day static</th><th class="num">Cum. adaptive</th><th class="num">Cum. static</th></tr>
           </thead>
           <tbody>
             <tr><td>1</td><td>The Multi-managed Snowboard</td><td class="num">8</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num">3</td></tr>
@@ -302,48 +302,48 @@
 
   <section class="block">
     <div class="closing">
-      <p><b>Cosa dimostra, e cosa no.</b> Dimostra che la funzione di scoring reale, senza alcuna modifica, sposta il ranking verso ciò che converte davvero man mano che arrivano eventi comportamentali — con similarità genuina e ipotesi di conversione dichiarate in chiaro qui sopra.</p>
-      <p>Non dimostra un risultato per il tuo negozio: traffico, catalogo e comportamento effettivo dei clienti variano, e nessun numero qui sopra è una promessa di performance.</p>
+      <p><b>What this shows, and what it doesn't.</b> It shows that the real scoring function, without any modification, shifts the ranking toward what actually converts as behavioral events come in — with genuine similarity and conversion assumptions stated in full above.</p>
+      <p>It doesn't show a result for your store: traffic, catalog, and actual customer behavior vary, and none of the numbers above are a performance promise.</p>
     </div>
-    <p class="meta-strip">Catalogo dimostrativo aisly-test · 13 prodotti embeddati · seed simulazione 42 · query di riferimento: similarità con "The Complete Snowboard"</p>
+    <p class="meta-strip">Demo catalog aisly-test · 13 embedded products · simulation seed 42 · reference query: similarity to "The Complete Snowboard"</p>
   </section>
 </div>
 
 <div class="cta-section">
-  <h2 class="cta-title">Il ranking impara<br>da <em>ogni carrello</em>.</h2>
-  <p class="cta-sub">14 giorni gratis. Nessuna carta di credito richiesta. Cancella quando vuoi.</p>
-  <a href="https://app.tryaisly.com" class="btn-primary">Crea il tuo account gratis →</a>
+  <h2 class="cta-title">The ranking learns<br>from <em>every cart</em>.</h2>
+  <p class="cta-sub">14 days free. No credit card required. Cancel anytime.</p>
+  <a href="https://app.tryaisly.com?lang=en" class="btn-primary">Create your free account →</a>
 </div>
 
 <footer>
   <div class="footer-top">
     <div>
       <div class="footer-logo">aisly<span>.</span></div>
-      <div class="footer-tagline">Il personal shopper AI per Shopify</div>
+      <div class="footer-tagline">The AI personal shopper for Shopify</div>
     </div>
     <div class="footer-col">
-      <h4>Prodotto</h4>
-      <a href="/#come-funziona">Come funziona</a>
-      <a href="/#funzionalita">Funzionalità</a>
-      <a href="/#prezzi">Prezzi</a>
-      <a href="/ranking">Come funziona il ranking</a>
+      <h4>Product</h4>
+      <a href="/en#how-it-works">How it works</a>
+      <a href="/en#features">Features</a>
+      <a href="/en#pricing">Pricing</a>
+      <a href="/en/ranking">How the ranking works</a>
     </div>
     <div class="footer-col">
       <h4>Account</h4>
       <a href="https://app.tryaisly.com">Dashboard</a>
-      <a href="https://app.tryaisly.com">Registrati gratis</a>
+      <a href="https://app.tryaisly.com">Sign up free</a>
     </div>
     <div class="footer-col">
-      <h4>Supporto</h4>
-      <a href="mailto:hello@tryaisly.com">Contattaci</a>
+      <h4>Support</h4>
+      <a href="mailto:hello@tryaisly.com">Contact us</a>
       <a href="mailto:hello@tryaisly.com">hello@tryaisly.com</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Aisly · tryaisly.com · P.IVA in corso di registrazione</div>
+    <div class="footer-copy">© 2026 Aisly · tryaisly.com</div>
     <div class="footer-legal">
       <a href="/privacy">Privacy Policy</a>
-      <a href="/termini">Termini di Servizio</a>
+      <a href="/termini">Terms of Service</a>
       <a href="/cookie">Cookie Policy</a>
     </div>
   </div>
