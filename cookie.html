@@ -87,8 +87,8 @@
       <tr>
         <td>aisly_sid</td>
         <td>Tecnico / Funzionale</td>
-        <td>7 giorni</td>
-        <td>Identificatore di sessione anonimo che permette al widget di ricordare la conversazione precedente quando il visitatore ritorna sul negozio entro 7 giorni. Non contiene dati personali identificativi.</td>
+        <td>30 giorni</td>
+        <td>Identificatore di sessione anonimo che permette al widget di ricordare la conversazione precedente quando il visitatore ritorna sul negozio entro 30 giorni. Non contiene dati personali identificativi — se il negozio ha attivato il riconoscimento dei visitatori di ritorno, e il visitatore ha lasciato volontariamente il proprio nome, quel nome è collegato a questo identificatore per personalizzare il saluto.</td>
       </tr>
       <tr>
         <td>aisly_rec</td>
@@ -96,8 +96,15 @@
         <td>24 ore</td>
         <td>Flag che indica se il messaggio di recupero carrello abbandonato è già stato mostrato nella giornata, per evitare messaggi ripetitivi.</td>
       </tr>
+      <tr>
+        <td>aisly_nudge</td>
+        <td>Tecnico / Funzionale</td>
+        <td>24 ore</td>
+        <td>Flag che indica se al visitatore è già stato mostrato un messaggio proattivo (carrello fermo o intenzione di uscita) nella giornata, per non essere invadenti.</td>
+      </tr>
     </tbody>
   </table>
+  <p>Il widget usa anche l'archivio locale del browser (sessionStorage, cancellato alla chiusura della scheda) per ricordare, solo per la sessione corrente, se alcuni messaggi facoltativi sono già stati mostrati — stessa finalità tecnica dei cookie sopra, nessun dato aggiuntivo raccolto.</p>
   <p>I cookie del widget non vengono utilizzati per finalità pubblicitarie o di profilazione. Non vengono condivisi con terze parti per scopi di marketing.</p>
 
   <h2>Cookie di terze parti</h2>
